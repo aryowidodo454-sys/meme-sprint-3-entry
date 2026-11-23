@@ -15,8 +15,8 @@ BOT_BAND = 180
 ART_H = H - TOP_BAND - BOT_BAND
 
 TOP_LINES = ["I ASKED MY AGENT", "TO SAVE ME MONEY"]
-BOT_LINES = ["IT SOLD MY CAR.", "WENT ALL-IN ON DUCKS."]
-BUBBLE_LINES = ["4,000 DUCKS.", "THEY ONLY GO UP."]
+BOT_LINES = ["IT SOLD MY CAR.", "WENT ALL-IN ON 4,000 DUCKS."]
+BUBBLE_LINES = ["DUCKS ONLY GO UP."]
 
 
 def fit_font(draw, text, max_w, start=92):
@@ -39,18 +39,20 @@ def main():
     # Fit whole art height into the art area so feet stay whole;
     # stretch the last few percent horizontally (imperceptible) to fill width.
     art = art.resize((W, ART_H), Image.LANCZOS)
+    # Shave the thin cream frame remnant off the art's bottom edge.
+    art = art.crop((0, 0, W, ART_H - 8)).resize((W, ART_H), Image.LANCZOS)
 
     img = Image.new("RGB", (W, H), (0, 0, 0))
     img.paste(art, (0, TOP_BAND))
     d = ImageDraw.Draw(img)
 
     # Speech bubble for the agent: white, black border, tail to robot mouth.
-    bx0, by0, bx1, by1 = 238, TOP_BAND + 6, 578, TOP_BAND + 118
-    d.polygon([(332, by1 - 4), (370, by1 - 4), (274, TOP_BAND + 258)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
+    bx0, by0, bx1, by1 = 238, TOP_BAND + 6, 578, TOP_BAND + 88
+    d.polygon([(332, by1 - 4), (370, by1 - 4), (262, TOP_BAND + 262)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     d.rounded_rectangle([bx0, by0, bx1, by1], radius=28, fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     bsizes = []
     for line in BUBBLE_LINES:
-        _, sz = fit_font(d, line, (bx1 - bx0) - 36, start=52)
+        _, sz = fit_font(d, line, (bx1 - bx0) - 36, start=60)
         bsizes.append(sz)
     bsize = min(bsizes)
     fb = ImageFont.truetype(FONT_PATH, bsize)
