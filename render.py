@@ -33,8 +33,8 @@ def main():
     art = Image.open(ART).convert("RGB")
     aw, ah = art.size
     # Crop away the plain beige bands: keep middle 62% vertically.
-    top_crop = int(ah * 0.17)
-    bot_crop = int(ah * 0.86)
+    top_crop = int(ah * 0.182)
+    bot_crop = int(ah * 0.848)
     art = art.crop((0, top_crop, aw, bot_crop))
     # Fit whole art height into the art area so feet stay whole;
     # stretch the last few percent horizontally (imperceptible) to fill width.
@@ -45,8 +45,8 @@ def main():
     d = ImageDraw.Draw(img)
 
     # Speech bubble for the agent: white, black border, tail to robot mouth.
-    bx0, by0, bx1, by1 = 16, TOP_BAND + 8, 404, TOP_BAND + 124
-    d.polygon([(318, by1 - 4), (356, by1 - 4), (272, TOP_BAND + 258)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
+    bx0, by0, bx1, by1 = 238, TOP_BAND + 6, 578, TOP_BAND + 118
+    d.polygon([(332, by1 - 4), (370, by1 - 4), (274, TOP_BAND + 258)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     d.rounded_rectangle([bx0, by0, bx1, by1], radius=28, fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     bsizes = []
     for line in BUBBLE_LINES:
