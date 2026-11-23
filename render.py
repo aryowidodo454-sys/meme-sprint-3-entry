@@ -15,7 +15,8 @@ BOT_BAND = 180
 ART_H = H - TOP_BAND - BOT_BAND
 
 TOP_LINES = ["I ASKED MY AGENT", "TO SAVE ME MONEY"]
-BOT_LINES = ["IT SOLD MY CAR.", "BOUGHT 4,000 RUBBER DUCKS."]
+BOT_LINES = ["IT SOLD MY CAR.", "WENT ALL-IN ON DUCKS."]
+BUBBLE_LINES = ["4,000 DUCKS.", "THEY ONLY GO UP."]
 
 
 def fit_font(draw, text, max_w, start=92):
@@ -35,21 +36,29 @@ def main():
     top_crop = int(ah * 0.17)
     bot_crop = int(ah * 0.86)
     art = art.crop((0, top_crop, aw, bot_crop))
-    # Resize to fill art area width, center-crop height.
-    scale = W / art.width
-    art = art.resize((W, int(art.height * scale)), Image.LANCZOS)
-    if art.height > ART_H:
-        # Bias crop upward so feet at the bottom survive.
-        y = 0
-        art = art.crop((0, y, W, y + ART_H))
-    else:
-        canvas_art = Image.new("RGB", (W, ART_H), (0, 0, 0))
-        canvas_art.paste(art, (0, (ART_H - art.height) // 2))
-        art = canvas_art
+    # Fit whole art height into the art area so feet stay whole;
+    # stretch the last few percent horizontally (imperceptible) to fill width.
+    art = art.resize((W, ART_H), Image.LANCZOS)
 
     img = Image.new("RGB", (W, H), (0, 0, 0))
     img.paste(art, (0, TOP_BAND))
     d = ImageDraw.Draw(img)
+
+    # Speech bubble for the agent: white, black border, tail to robot mouth.
+    bx0, by0, bx1, by1 = 16, TOP_BAND + 8, 404, TOP_BAND + 124
+    d.polygon([(318, by1 - 4), (356, by1 - 4), (272, TOP_BAND + 258)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
+    d.rounded_rectangle([bx0, by0, bx1, by1], radius=28, fill=(255, 255, 255), outline=(0, 0, 0), width=5)
+    bsizes = []
+    for line in BUBBLE_LINES:
+        _, sz = fit_font(d, line, (bx1 - bx0) - 36, start=52)
+        bsizes.append(sz)
+    bsize = min(bsizes)
+    fb = ImageFont.truetype(FONT_PATH, bsize)
+    bline_h = int(bsize * 1.15)
+    by = by0 + ((by1 - by0) - bline_h * len(BUBBLE_LINES)) / 2
+    for i, line in enumerate(BUBBLE_LINES):
+        tw = d.textlength(line, font=fb)
+        d.text((bx0 + ((bx1 - bx0) - tw) / 2, by + i * bline_h), line, font=fb, fill=(0, 0, 0))
 
     # Top: two lines, same size.
     top_sizes = []
