@@ -10,8 +10,8 @@ PREVIEW = os.path.join(HERE, "drafts", "entry-300.png")
 FONT_PATH = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 
 W = H = 1024
-TOP_BAND = 150
-BOT_BAND = 210
+TOP_BAND = 170
+BOT_BAND = 180
 ART_H = H - TOP_BAND - BOT_BAND
 
 TOP_LINES = ["I ASKED MY AGENT", "TO SAVE ME MONEY"]
@@ -32,15 +32,15 @@ def main():
     art = Image.open(ART).convert("RGB")
     aw, ah = art.size
     # Crop away the plain beige bands: keep middle 62% vertically.
-    top_crop = int(ah * 0.185)
-    bot_crop = int(ah * 0.815)
+    top_crop = int(ah * 0.17)
+    bot_crop = int(ah * 0.86)
     art = art.crop((0, top_crop, aw, bot_crop))
     # Resize to fill art area width, center-crop height.
     scale = W / art.width
     art = art.resize((W, int(art.height * scale)), Image.LANCZOS)
     if art.height > ART_H:
         # Bias crop upward so feet at the bottom survive.
-        y = int((art.height - ART_H) * 0.25)
+        y = 0
         art = art.crop((0, y, W, y + ART_H))
     else:
         canvas_art = Image.new("RGB", (W, ART_H), (0, 0, 0))
