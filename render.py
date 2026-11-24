@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ART = os.path.join(HERE, "assets", "media-generation-cand-a-ducks-0-a060c3e2-5b86-47dc-8d09-bb32360d85ae.webp")
+ART = os.path.join(HERE, "assets", "media-generation-cand-g-extreme-0-547cf955-4b1b-43e4-bc03-dbfe0099907f.webp")
 OUT = os.path.join(HERE, "entry.png")
 PREVIEW = os.path.join(HERE, "drafts", "entry-300.png")
 FONT_PATH = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
@@ -15,8 +15,8 @@ BOT_BAND = 180
 ART_H = H - TOP_BAND - BOT_BAND
 
 TOP_LINES = ["I ASKED MY AGENT", "TO SAVE ME MONEY"]
-BOT_LINES = ["IT SOLD MY CAR.", "WENT ALL-IN ON 4,000 DUCKS."]
-BUBBLE_LINES = ["DUCKS ONLY GO UP."]
+BOT_LINES = ["IT SOLD MY CAR.", "WENT ALL-IN ON DUCKS."]
+BUBBLE_LINES = ["MEET THE TEAM."]
 
 
 def fit_font(draw, text, max_w, start=92):
@@ -33,8 +33,8 @@ def main():
     art = Image.open(ART).convert("RGB")
     aw, ah = art.size
     # Crop away the plain beige bands: keep middle 62% vertically.
-    top_crop = int(ah * 0.182)
-    bot_crop = int(ah * 0.848)
+    top_crop = int(ah * 0.17)
+    bot_crop = int(ah * 0.985)
     art = art.crop((0, top_crop, aw, bot_crop))
     # Fit whole art height into the art area so feet stay whole;
     # stretch the last few percent horizontally (imperceptible) to fill width.
@@ -48,7 +48,7 @@ def main():
 
     # Speech bubble for the agent: white, black border, tail to robot mouth.
     bx0, by0, bx1, by1 = 238, TOP_BAND + 6, 578, TOP_BAND + 88
-    d.polygon([(332, by1 - 4), (370, by1 - 4), (262, TOP_BAND + 262)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
+    d.polygon([(332, by1 - 4), (370, by1 - 4), (290, TOP_BAND + 258)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     d.rounded_rectangle([bx0, by0, bx1, by1], radius=28, fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     bsizes = []
     for line in BUBBLE_LINES:
