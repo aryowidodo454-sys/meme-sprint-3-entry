@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ART = os.path.join(HERE, "assets", "media-generation-cand-g-extreme-0-547cf955-4b1b-43e4-bc03-dbfe0099907f.webp")
+ART = os.path.join(HERE, "assets", "media-generation-cand-h2-clean-0-e306041d-f15c-4fb4-a430-723459b69b39.webp")
 OUT = os.path.join(HERE, "entry.png")
 PREVIEW = os.path.join(HERE, "drafts", "entry-300.png")
 FONT_PATH = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
