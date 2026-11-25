@@ -4,18 +4,18 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ART = os.path.join(HERE, "assets", "media-generation-cand-h2-clean-0-e306041d-f15c-4fb4-a430-723459b69b39.webp")
+ART = os.path.join(HERE, "assets", "media-generation-cand-w-giant-team-0-145a1834-454a-43f8-af32-292ec7c6ce9f.webp")
 OUT = os.path.join(HERE, "entry.png")
 PREVIEW = os.path.join(HERE, "drafts", "entry-300.png")
 FONT_PATH = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 
 W = H = 1024
 TOP_BAND = 170
-BOT_BAND = 180
+BOT_BAND = 110
 ART_H = H - TOP_BAND - BOT_BAND
 
 TOP_LINES = ["I ASKED MY AGENT", "TO SAVE ME MONEY"]
-BOT_LINES = ["IT SOLD MY CAR.", "WENT ALL-IN ON DUCKS."]
+BOT_LINES = ["IT SOLD MY CAR."]
 BUBBLE_LINES = ["MEET THE TEAM."]
 
 
@@ -33,7 +33,7 @@ def main():
     art = Image.open(ART).convert("RGB")
     aw, ah = art.size
     # Crop away the plain beige bands: keep middle 62% vertically.
-    top_crop = int(ah * 0.17)
+    top_crop = int(ah * 0.04)
     bot_crop = int(ah * 0.985)
     art = art.crop((0, top_crop, aw, bot_crop))
     # Fit whole art height into the art area so feet stay whole;
@@ -47,12 +47,12 @@ def main():
     d = ImageDraw.Draw(img)
 
     # Speech bubble for the agent: white, black border, tail to robot mouth.
-    bx0, by0, bx1, by1 = 238, TOP_BAND + 6, 578, TOP_BAND + 88
-    d.polygon([(332, by1 - 4), (370, by1 - 4), (290, TOP_BAND + 258)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
+    bx0, by0, bx1, by1 = 150, TOP_BAND + 6, 650, TOP_BAND + 92
+    d.polygon([(300, by1 - 4), (345, by1 - 4), (258, TOP_BAND + 318)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     d.rounded_rectangle([bx0, by0, bx1, by1], radius=28, fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     bsizes = []
     for line in BUBBLE_LINES:
-        _, sz = fit_font(d, line, (bx1 - bx0) - 36, start=60)
+        _, sz = fit_font(d, line, (bx1 - bx0) - 36, start=72)
         bsizes.append(sz)
     bsize = min(bsizes)
     fb = ImageFont.truetype(FONT_PATH, bsize)
@@ -81,15 +81,16 @@ def main():
     for line in BOT_LINES:
         _, sz = fit_font(d, line, W - 48)
         sizes.append(sz)
-    size = min(sizes)
-    f2 = ImageFont.truetype(FONT_PATH, size)
-    line_h = int(size * 1.18)
-    total = line_h * len(BOT_LINES)
-    y = TOP_BAND + ART_H + (BOT_BAND - total) / 2
-    colors = [(255, 255, 255), (255, 213, 0)]
-    for i, line in enumerate(BOT_LINES):
-        tw = d.textlength(line, font=f2)
-        d.text(((W - tw) / 2, y + i * line_h), line, font=f2, fill=colors[i])
+    size = min(sizes) if sizes else 0
+    if sizes:
+        f2 = ImageFont.truetype(FONT_PATH, size)
+        line_h = int(size * 1.18)
+        total = line_h * len(BOT_LINES)
+        y = TOP_BAND + ART_H + (BOT_BAND - total) / 2
+        colors = [(255, 255, 255), (255, 213, 0)]
+        for i, line in enumerate(BOT_LINES):
+            tw = d.textlength(line, font=f2)
+            d.text(((W - tw) / 2, y + i * line_h), line, font=f2, fill=colors[i])
 
     # Quantize to palette: cartoon art stays clean, file shrinks under gate.
     q = img.quantize(colors=256, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.FLOYDSTEINBERG)
