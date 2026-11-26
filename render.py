@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ART = os.path.join(HERE, "assets", "media-generation-cand-wedding-0-4087a436-a7a4-436c-8099-16c194e7b44e.webp")
+ART = os.path.join(HERE, "assets", "media-generation-cand-badge-0-73a035cc-f074-4696-8b6a-6673c4688dd9.webp")
 OUT = os.path.join(HERE, "entry.png")
 PREVIEW = os.path.join(HERE, "drafts", "entry-300.png")
 FONT_PATH = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
@@ -48,7 +48,7 @@ def main():
 
     # Speech bubble for the agent: white, black border, tail to robot mouth.
     bx0, by0, bx1, by1 = 330, TOP_BAND + 730, 690, TOP_BAND + 816
-    d.polygon([(368, by0 + 4), (412, by0 + 4), (390, TOP_BAND + 470)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
+    d.polygon([(488, by0 + 4), (532, by0 + 4), (510, TOP_BAND + 240)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     d.rounded_rectangle([bx0, by0, bx1, by1], radius=28, fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     bsizes = []
     for line in BUBBLE_LINES:
