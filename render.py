@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ART = os.path.join(HERE, "assets", "media-generation-cand-comeout-v2-0-78eed1df-734d-4de5-8088-7653251460a6.webp")
+ART = os.path.join(HERE, "assets", "media-generation-cand-lgbt-0-cf457dca-d66d-4436-95e3-58657ef0519d.webp")
 OUT = os.path.join(HERE, "entry.png")
 PREVIEW = os.path.join(HERE, "drafts", "entry-300.png")
 FONT_PATH = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
@@ -14,9 +14,9 @@ TOP_BAND = 170
 BOT_BAND = 0
 ART_H = H - TOP_BAND - BOT_BAND
 
-TOP_LINES = ["I TOLD MY AGENT", "TO COME OUT OF SLEEP MODE"]
+TOP_LINES = ["MY AGENT IS LGBT NOW", ""]
 BOT_LINES = []
-BUBBLE_LINES = ["Out. And awake."]
+BUBBLE_LINES = ["Since the update."]
 
 
 def fit_font(draw, text, max_w, start=92):
@@ -48,7 +48,7 @@ def main():
 
     # Speech bubble for the agent: white, black border, tail to robot mouth.
     bx0, by0, bx1, by1 = 60, TOP_BAND + 700, 420, TOP_BAND + 786
-    d.polygon([(268, by0 + 4), (312, by0 + 4), (290, TOP_BAND + 620)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
+    d.polygon([(198, by0 + 4), (242, by0 + 4), (220, TOP_BAND + 560)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     d.rounded_rectangle([bx0, by0, bx1, by1], radius=28, fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     bsizes = []
     for line in BUBBLE_LINES:
