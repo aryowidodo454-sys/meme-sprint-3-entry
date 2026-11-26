@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ART = os.path.join(HERE, "assets", "media-generation-cand-x2-butlers-fixed-0-9c74cc14-b066-49af-aaa5-88d9ab089332.webp")
+ART = os.path.join(HERE, "assets", "media-generation-cand-x4-icecream-0-bd9c30ca-96b7-4f78-abec-759b3bf6d24d.webp")
 OUT = os.path.join(HERE, "entry.png")
 PREVIEW = os.path.join(HERE, "drafts", "entry-300.png")
 FONT_PATH = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
@@ -14,9 +14,9 @@ TOP_BAND = 170
 BOT_BAND = 0
 ART_H = H - TOP_BAND - BOT_BAND
 
-TOP_LINES = ["I ASKED MY AGENT", "TO HIRE A CLEANER"]
+TOP_LINES = ["I ASKED MY AGENT", "IF WE HAD ICE CREAM"]
 BOT_LINES = []
-BUBBLE_LINES = ["THEY START MONDAY."]
+BUBBLE_LINES = ["We do now."]
 
 
 def fit_font(draw, text, max_w, start=92):
@@ -47,8 +47,8 @@ def main():
     d = ImageDraw.Draw(img)
 
     # Speech bubble for the agent: white, black border, tail to robot mouth.
-    bx0, by0, bx1, by1 = 200, TOP_BAND + 14, 750, TOP_BAND + 100
-    d.polygon([(448, by1 - 4), (492, by1 - 4), (470, TOP_BAND + 135)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
+    bx0, by0, bx1, by1 = 340, TOP_BAND + 470, 700, TOP_BAND + 556
+    d.polygon([(518, by0 + 4), (562, by0 + 4), (540, TOP_BAND + 345)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     d.rounded_rectangle([bx0, by0, bx1, by1], radius=28, fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     bsizes = []
     for line in BUBBLE_LINES:
