@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ART = os.path.join(HERE, "assets", "media-generation-cand-badge-v2-0-db812e6c-9106-4eaf-b5b1-a9afae0fa7da.webp")
+ART = os.path.join(HERE, "assets", "media-generation-cand-badge-v3-0-081d65d5-85ac-44a2-8388-1d74c63f4678.webp")
 OUT = os.path.join(HERE, "entry.png")
 PREVIEW = os.path.join(HERE, "drafts", "entry-300.png")
 FONT_PATH = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
@@ -47,8 +47,8 @@ def main():
     d = ImageDraw.Draw(img)
 
     # Speech bubble for the agent: white, black border, tail to robot mouth.
-    bx0, by0, bx1, by1 = 600, TOP_BAND + 180, 960, TOP_BAND + 266
-    d.polygon([(558, by1 - 4), (602, by1 - 4), (580, TOP_BAND + 300)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
+    bx0, by0, bx1, by1 = 60, TOP_BAND + 80, 420, TOP_BAND + 166
+    d.polygon([(318, by1 - 4), (362, by1 - 4), (340, TOP_BAND + 280)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     d.rounded_rectangle([bx0, by0, bx1, by1], radius=28, fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     bsizes = []
     for line in BUBBLE_LINES:
