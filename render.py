@@ -47,8 +47,8 @@ def main():
     d = ImageDraw.Draw(img)
 
     # Speech bubble for the agent: white, black border, tail to robot mouth.
-    bx0, by0, bx1, by1 = 60, TOP_BAND + 80, 420, TOP_BAND + 166
-    d.polygon([(318, by1 - 4), (362, by1 - 4), (340, TOP_BAND + 280)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
+    bx0, by0, bx1, by1 = 150, TOP_BAND + 50, 510, TOP_BAND + 136
+    d.polygon([(408, by1 - 4), (452, by1 - 4), (430, TOP_BAND + 200)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     d.rounded_rectangle([bx0, by0, bx1, by1], radius=28, fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     bsizes = []
     for line in BUBBLE_LINES:
