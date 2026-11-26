@@ -4,19 +4,19 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ART = os.path.join(HERE, "assets", "media-generation-cand-w-giant-team-0-145a1834-454a-43f8-af32-292ec7c6ce9f.webp")
+ART = os.path.join(HERE, "assets", "media-generation-cand-x2-butlers-fixed-0-9c74cc14-b066-49af-aaa5-88d9ab089332.webp")
 OUT = os.path.join(HERE, "entry.png")
 PREVIEW = os.path.join(HERE, "drafts", "entry-300.png")
 FONT_PATH = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 
 W = H = 1024
 TOP_BAND = 170
-BOT_BAND = 110
+BOT_BAND = 0
 ART_H = H - TOP_BAND - BOT_BAND
 
-TOP_LINES = ["I ASKED MY AGENT", "TO SAVE ME MONEY"]
-BOT_LINES = ["IT SOLD MY CAR."]
-BUBBLE_LINES = ["MEET THE TEAM."]
+TOP_LINES = ["I ASKED MY AGENT", "TO HIRE A CLEANER"]
+BOT_LINES = []
+BUBBLE_LINES = ["THEY START MONDAY."]
 
 
 def fit_font(draw, text, max_w, start=92):
@@ -47,8 +47,8 @@ def main():
     d = ImageDraw.Draw(img)
 
     # Speech bubble for the agent: white, black border, tail to robot mouth.
-    bx0, by0, bx1, by1 = 150, TOP_BAND + 6, 650, TOP_BAND + 92
-    d.polygon([(300, by1 - 4), (345, by1 - 4), (258, TOP_BAND + 318)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
+    bx0, by0, bx1, by1 = 200, TOP_BAND + 14, 750, TOP_BAND + 100
+    d.polygon([(448, by1 - 4), (492, by1 - 4), (470, TOP_BAND + 135)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     d.rounded_rectangle([bx0, by0, bx1, by1], radius=28, fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     bsizes = []
     for line in BUBBLE_LINES:
