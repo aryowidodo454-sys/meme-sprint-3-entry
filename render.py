@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ART = os.path.join(HERE, "assets", "media-generation-cand-captcha-max-0-52e8b697-d466-47e2-983c-dbf9acb096df.webp")
+ART = os.path.join(HERE, "assets", "media-generation-cand-captcha-v2-0-e003afad-4579-49fd-a6ae-cbe4d74652c7.webp")
 OUT = os.path.join(HERE, "entry.png")
 PREVIEW = os.path.join(HERE, "drafts", "entry-300.png")
 FONT_PATH = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
@@ -47,8 +47,8 @@ def main():
     d = ImageDraw.Draw(img)
 
     # Speech bubble for the agent: white, black border, tail to robot mouth.
-    bx0, by0, bx1, by1 = 180, TOP_BAND + 380, 540, TOP_BAND + 466
-    d.polygon([(408, by1 - 4), (452, by1 - 4), (430, TOP_BAND + 560)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
+    bx0, by0, bx1, by1 = 330, TOP_BAND + 500, 690, TOP_BAND + 586
+    d.polygon([(408, by1 - 4), (452, by1 - 4), (430, TOP_BAND + 590)], fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     d.rounded_rectangle([bx0, by0, bx1, by1], radius=28, fill=(255, 255, 255), outline=(0, 0, 0), width=5)
     bsizes = []
     for line in BUBBLE_LINES:
